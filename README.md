@@ -1,536 +1,149 @@
-# 🖥️ Laboratorio Active Directory - Windows Server 2022
+# 👋 Hola, soy Fructuoso Mba Oñana Fernadez
 
-[![Windows Server](https://img.shields.io/badge/Windows%20Server-2022-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://www.microsoft.com/windows-server)
-[![Windows 10](https://img.shields.io/badge/Windows%2010-Pro-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://www.microsoft.com/windows)
-[![VirtualBox](https://img.shields.io/badge/VirtualBox-7.x-183A61?style=for-the-badge&logo=virtualbox&logoColor=white)](https://www.virtualbox.org/)
-[![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04%20LTS-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)](https://ubuntu.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+> **Técnico de Sistemas con 9 años en NOC | Especializándome en Cloud Azure | Busco Helpdesk N1 / SysAdmin Junior en Madrid**
 
-> **Implementación completa de un entorno de dominio Active Directory para prácticas de Administración de Sistemas Informáticos en Red (ASIR)**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9)
+[![AZ-900](https://img.shields.io/badge/AZ--900-En_curso_%7C_10_Jun_2026-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://learn.microsoft.com/es-es/credentials/certifications/azure-fundamentals/)
+[![GitHub](https://img.shields.io/badge/GitHub-MbaMrF-181717?style=for-the-badge&logo=github)](https://github.com/MbaMrF)
 
 ---
 
-## 📋 Tabla de Contenidos
+## 🎯 Objetivo
 
-- [Descripción](#-descripción)
-- [Características](#-características)
-- [Arquitectura](#-arquitectura)
-- [Requisitos](#-requisitos)
-- [Instalación](#-instalación)
-- [Configuración](#-configuración)
-- [Pruebas Realizadas](#-pruebas-realizadas)
-- [Capturas de Pantalla](#-capturas-de-pantalla)
-- [Problemas Resueltos](#-problemas-resueltos)
-- [Aprendizajes](#-aprendizajes)
-- [Próximos Pasos](#-próximos-pasos)
-- [Recursos](#-recursos)
-- [Autor](#-autor)
-- [Licencia](#-licencia)
+Demostrar con labs prácticos mi experiencia de 9 años en NOC adaptada a entornos Windows/Linux y Cloud Azure. Actualmente preparando certificación **Microsoft AZ-900 | Examen: 10 Junio 2026**.
+
+Abierto a oportunidades de **Helpdesk N1, Soporte IT o Técnico de Sistemas Junior** en Madrid. Híbrido / Remoto.
 
 ---
 
-## 🎯 Descripción
+## 👤 Sobre mí
 
-Este proyecto documenta la implementación completa de un **laboratorio de Active Directory** desde cero, incluyendo:
+9 años como técnico NOC en telecomunicaciones (GECOMSA, Guinea Ecuatorial) gestionando incidencias, monitorización de red y SLAs en entornos de producción 24x7. Formación técnica en ZTE University (Shenzhen, 2009). ASIR completado en España.
 
-- 🔧 Configuración de infraestructura virtualizada con VirtualBox
-- 🌐 Diseño e implementación de red aislada
-- 🏢 Instalación y configuración de Windows Server 2022 como Controlador de Dominio
-- 👥 Gestión de usuarios, grupos y permisos
-- 🔐 Control de acceso basado en roles (RBAC)
-- 🐛 Troubleshooting completo de problemas reales
-
-**Objetivo:** Demostrar habilidades prácticas en administración de sistemas Windows Server y Active Directory, con documentación técnica profesional de nivel enterprise.
+Combino experiencia real en operaciones críticas con administración de sistemas para incorporarme al sector IT en Madrid. Dominio avanzado del inglés, nativo en español, francés básico.
 
 ---
 
-## ✨ Características
+## 🛠 Stack Tecnológico
 
-### Infraestructura
+**Virtualización**
+- Oracle VirtualBox, VMware Workstation Pro 17
 
-- ✅ **3 máquinas virtuales** configuradas y operativas
-- ✅ **Red aislada** (192.168.100.0/24) independiente de la red doméstica
-- ✅ **Active Directory Domain Services** completamente funcional
-- ✅ **DNS integrado** con resolución de nombres automática
-- ✅ **Servidor de archivos** con permisos granulares
+**Sistemas Operativos**
+- Windows Server 2022 / 2016, Windows 10/11 Pro
+- Ubuntu Server 22.04, Ubuntu Desktop
 
-### Active Directory
+**Servicios Windows**
+- Active Directory DS, DNS, DHCP, Print Services, RDP
+- PowerShell (scripting y automatización)
 
-- ✅ **Dominio:** `milab.local` (NetBIOS: MILAB)
-- ✅ **5 usuarios** de dominio creados
-- ✅ **Grupos de seguridad** con miembros asignados
-- ✅ **Unidades Organizativas (OUs)** para estructura jerárquica
-- ✅ **Carpetas compartidas** con control de acceso basado en grupos
-- ✅ **Cliente Windows 10 Pro** unido al dominio
+**Servicios Linux**
+- SSH, Apache, MariaDB, osTicket v1.18.1
 
-### Seguridad
+**Redes**
+- Subnetting, VLANs, NAT, Red Interna VirtualBox
+- TCP/IP, Configuración de Firewall
 
-- ✅ Control de acceso verificado (positivo y negativo)
-- ✅ Autenticación centralizada
-- ✅ Permisos de red SMB configurados
-- ✅ Firewall configurado y documentado
+**Ticketing & ITSM**
+- osTicket, ServiceNow (conocimiento), Jira, Freshdesk
 
----
-
-## 🏗️ Arquitectura
-
-### Topología de Red
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    HOST (Windows 11)                     │
-│                                                          │
-│  ┌────────────────────────────────────────────────┐    │
-│  │              VirtualBox 7.x                     │    │
-│  │                                                 │    │
-│  │  ┌──────────────────┐  ┌──────────────────┐   │    │
-│  │  │  MBA-DOMINIO     │  │   Cliente01      │   │    │
-│  │  │  Win Server 2022 │  │   Windows 10 Pro │   │    │
-│  │  │  192.168.100.10  │  │  192.168.100.20  │   │    │
-│  │  │                  │  │                  │   │    │
-│  │  │  • AD DS         │  │  • Unido al      │   │    │
-│  │  │  • DNS Server    │  │    dominio       │   │    │
-│  │  │  • File Server   │  │  • Autenticación │   │    │
-│  │  └────────┬─────────┘  └────────┬─────────┘   │    │
-│  │           │                     │             │    │
-│  │           └──────────┬──────────┘             │    │
-│  │                      │                        │    │
-│  │         ┌────────────▼─────────────┐          │    │
-│  │         │   Red Interna            │          │    │
-│  │         │   "red_empresa"          │          │    │
-│  │         │   192.168.100.0/24       │          │    │
-│  │         └────────────┬─────────────┘          │    │
-│  │                      │                        │    │
-│  │           ┌──────────▼─────────────┐          │    │
-│  │           │   SRV-Files            │          │    │
-│  │           │   Ubuntu 24.04         │          │    │
-│  │           │   192.168.100.30       │          │    │
-│  │           └────────────────────────┘          │    │
-│  │                                                │    │
-│  └────────────────────────────────────────────────┘    │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
-```
-
-### Especificaciones de las VMs
-
-| VM | Sistema Operativo | RAM | Disco | IP | Rol |
-|----|-------------------|-----|-------|----|----|
-| **MBA-DOMINIO** | Windows Server 2022 | 4 GB | 60 GB | 192.168.100.10 | Controlador de Dominio |
-| **Cliente01** | Windows 10 Pro | 4 GB | 50 GB | 192.168.100.20 | Cliente del dominio |
-| **SRV-Files** | Ubuntu 24.04 LTS | 2 GB | 40 GB | 192.168.100.30 | Servidor de archivos |
+**Cloud**
+- Microsoft Azure | AZ-900 en curso
 
 ---
 
-## 🔧 Requisitos
+## 📸 Labs Documentados
 
-### Hardware Mínimo
+### 🔬 Lab Principal: Infraestructura de Virtualización
 
-- **Procesador:** Intel/AMD con soporte de virtualización (VT-x/AMD-V)
-- **RAM:** 12 GB (8 GB para VMs + 4 GB para host)
-- **Disco:** 150 GB de espacio libre
-- **Sistema Operativo Host:** Windows 10/11, Linux o macOS
+Homelab con múltiples VMs corriendo simultáneamente para simular entorno de empresa real:
 
-### Software Necesario
+- **MBA-DOMINIO** — Windows Server 2022 (DC) · `192.168.100.10`
+- **WS2016** — Windows Server 2016 (DHCP, Print Services, RDP) · `192.168.100.15`
+- **Cliente01** — Windows 10 Pro (unido al dominio) · `192.168.100.20`
+- **Ubuntu Server** — osTicket + MariaDB · `192.168.100.30`
 
-- [Oracle VirtualBox](https://www.virtualbox.org/) 7.0 o superior
-- [Windows Server 2022](https://www.microsoft.com/es-es/evalcenter/download-windows-server-2022) ISO
-- [Windows 10 Pro](https://www.microsoft.com/es-es/software-download/windows10) ISO
-- [Ubuntu 24.04 LTS](https://ubuntu.com/download/desktop) ISO
-
-### Conocimientos Previos
-
-- Conceptos básicos de redes TCP/IP
-- Administración básica de Windows
-- Uso de VirtualBox
-- (Opcional) PowerShell básico
+![Homelab VirtualBox](Screenshots/virtualbox-lab.png)
+![Homelab VMware](Screenshots/vmware-lab.png)
 
 ---
 
-## 📥 Instalación
+### 🏢 Lab 1 — Active Directory en Windows Server 2022
 
-### 1. Clonar el repositorio
+Implementación completa de entorno de dominio desde cero:
 
-```bash
-git clone https://github.com/[tu-usuario]/asir-active-directory-lab.git
-cd asir-active-directory-lab
-```
+- Instalación del rol AD DS y promoción a Domain Controller `milab.local`
+- Estructura de OUs, 5 usuarios y grupos de seguridad
+- Control de acceso basado en roles (RBAC) con carpetas compartidas SMB
+- Unión de cliente Windows 10 Pro al dominio
+- Resolución de 9 problemas reales documentados (DNS, Firewall, edición Windows)
+- 6/6 tests de verificación superados — incluyendo denegación de acceso a usuarios sin permiso
 
-### 2. Configurar VirtualBox
-
-1. Instalar Oracle VirtualBox
-2. Crear las 3 máquinas virtuales según especificaciones
-3. Configurar adaptadores de red:
-   - **Adaptador 1:** Red Interna (`red_empresa`)
-   - **Adaptador 2:** NAT (para actualizaciones)
-
-### 3. Instalar sistemas operativos
-
-Seguir la guía completa en [`docs/LABORATORIO_ASIR_COMPLETO.md`](docs/LABORATORIO_ASIR_COMPLETO.md)
-
-**Documentación paso a paso:**
-- ✅ [Fase 1: Configuración de VirtualBox](docs/LABORATORIO_ASIR_COMPLETO.md#fase-1-configuración-del-entorno-virtual)
-- ✅ [Fase 2: Configuración de Red](docs/LABORATORIO_ASIR_COMPLETO.md#fase-2-configuración-de-red)
-- ✅ [Fase 3: Active Directory](docs/LABORATORIO_ASIR_COMPLETO.md#fase-3-active-directory-domain-services)
-- ✅ [Fase 4: Unión al Dominio](docs/LABORATORIO_ASIR_COMPLETO.md#fase-4-unión-de-windows-10-al-dominio)
+![AD DS](Screenshots/ad-usuarios.png)
 
 ---
 
-## ⚙️ Configuración
+### 📧 Lab 2 — Servidor de Email con hMailServer
 
-### Configuración de Red
+Instalación y configuración de servidor de correo en Windows Server:
 
-```yaml
-Red del Laboratorio: 192.168.100.0/24
-Máscara de subred: 255.255.255.0
-Gateway: No configurado (red aislada)
-
-Servidor DNS: 192.168.100.10
-Dominio: milab.local
-NetBIOS: MILAB
-```
-
-### Usuarios Creados
-
-| Usuario | Contraseña | Grupo | Descripción |
-|---------|------------|-------|-------------|
-| Administrador | - | Admins. del dominio | Cuenta de administración |
-| jperez | Temporal123! | IT_Soporte | Usuario del departamento IT |
-| mlopez | Temporal123! | IT_Soporte | Usuario del departamento IT |
-| cgarcia | Temporal123! | Usuarios del dominio | Usuario estándar |
-| lmartinez | Temporal123! | Usuarios del dominio | Usuario estándar |
-| aruiz | Temporal123! | Usuarios del dominio | Usuario estándar |
-
-⚠️ **Nota:** Estas contraseñas son solo para entorno de laboratorio. En producción usar políticas de contraseñas robustas.
-
-### Recursos Compartidos
-
-| Recurso | Ruta UNC | Permisos | Descripción |
-|---------|----------|----------|-------------|
-| IT | `\\192.168.100.10\IT` | IT_Soporte (Control total) | Carpeta del departamento IT |
+- hMailServer 5.6.8 + Thunderbird como cliente
+- Simulación de cuarentena y reglas antispam
+- Configuración de puertos 25/143/110 y reglas de Firewall
+- Resolución de bug en campos vacíos de reglas de filtrado
 
 ---
 
-## 🧪 Pruebas Realizadas
+### 🎫 Lab 3 — Sistema de Ticketing con osTicket
 
-### Suite de Tests Completa
+Instalación y configuración de osTicket v1.18.1 sobre Ubuntu Server:
 
-| # | Test | Estado | Evidencia |
-|---|------|--------|-----------|
-| 1 | Ping entre todas las VMs | ✅ PASS | 0% pérdida de paquetes |
-| 2 | Resolución DNS de `milab.local` | ✅ PASS | Resuelve a 192.168.100.10 |
-| 3 | Inicio de sesión con `jperez` | ✅ PASS | `whoami` = `milab\jperez` |
-| 4 | Acceso a carpeta IT con `jperez` | ✅ PASS | Lectura y escritura |
-| 5 | Denegación de acceso a `cgarcia` | ✅ PASS | Error de permiso |
-| 6 | Verificación del DC con `dcdiag` | ✅ PASS | Todos los tests OK |
-
-**Resultado:** 6/6 tests exitosos (100%)
-
-### Comandos de Verificación
-
-```powershell
-# Verificar estado del Controlador de Dominio
-dcdiag
-
-# Comprobar replicación (si hubiera múltiples DCs)
-repadmin /showrepl
-
-# Listar usuarios del dominio
-Get-ADUser -Filter * | Select-Object Name, SamAccountName
-
-# Listar grupos
-Get-ADGroup -Filter * | Select-Object Name
-
-# Verificar servicios
-Get-Service -Name "NTDS", "DNS", "Netlogon" | Select-Object Name, Status
-```
+- Stack LAMP: Apache + MariaDB + PHP
+- 8 Help Topics configurados, 4 SLA Plans, departamentos y agentes
+- Simulación de casos reales de Helpdesk N1/N2
 
 ---
 
-## 📸 Capturas de Pantalla
+### 🖨 Lab 4 — Servicios Windows Server 2016
 
-### VMs Configuradas en VirtualBox
-
-![VMs](screenshots/01-virtualbox/01-vms-configuradas.png)
-*Las 3 máquinas virtuales corriendo: Ubuntu-cliente, WS-lab (Server 2022), Windows 10 cl*
-
-### Conectividad de Red Verificada
-
-![Ping](screenshots/02-red/04-ping-server.png)
-*Ping desde Windows Server a todos los equipos: 0% de paquetes perdidos*
-
-![DNS](screenshots/02-red/01-nslookup-milab.png)
-*nslookup resolviendo milab.local correctamente desde el DNS del servidor*
-
-### Instalación de Active Directory
-
-![AD instalado](screenshots/03-active-directory/02-instalacion-completada.png)
-*Instalación de AD DS completada, listo para promover a Controlador de Dominio*
-
-### Estructura de Active Directory
-
-![OUs](screenshots/03-active-directory/05-estructura-OUs.png)
-*Estructura organizativa: milab.local con OUs Usuarios, Equipos y Grupos*
-
-![Usuarios](screenshots/03-active-directory/06-usuarios-creados.png)
-*Los 5 usuarios del dominio creados: Antonio Ruiz, Carlos Garcia, Juan Perez, Laura Martinez, Maria Lopez*
-
-![Grupo IT](screenshots/03-active-directory/07-grupo-IT-miembros.png)
-*Grupo IT soporte con sus 2 miembros: Juan Perez y Maria Lopez*
-
-![Permisos carpeta](screenshots/03-active-directory/08-permisos-carpeta-IT.png)
-*Carpeta IT compartida con permisos de Control Total para IT soporte*
-
-### Proceso de Unión al Dominio
-
-![Error Home](screenshots/04-union-dominio/01-error-win10-home.png)
-*Error en Windows 10 Home: "No puede unir a un dominio esta edición"*
-
-![Error DC](screenshots/04-union-dominio/03-error-no-contacta-DC.png)
-*Error de Firewall: "No se puede poner en contacto con un controlador de dominio"*
-
-![dcdiag](screenshots/04-union-dominio/04-dcdiag-todos-pasados.png)
-*dcdiag: todas las pruebas superadas en el servidor (Connectivity, Advertising, NetLogons...)*
-
-![Unión exitosa](screenshots/04-union-dominio/05-union-correcta-mensaje.png)
-*Mensaje de éxito: "Se unió correctamente al dominio milab"*
-
-### Autenticación y Permisos
-
-![Login MILAB](screenshots/04-union-dominio/06-pantalla-login-MILAB.png)
-*Pantalla de login mostrando "Iniciar sesión en MILAB" con opción "Otro usuario"*
-
-![whoami](screenshots/04-union-dominio/07-whoami-jperez.png)
-*Comando whoami confirmando autenticación: milab\jperez*
-
-![Carpeta IT](screenshots/04-union-dominio/08-carpeta-IT-archivo-creado.png)
-*jperez accede a \\192.168.100.10\it y crea archivo Prueba_jperez.txt*
-
-![Acceso denegado](screenshots/04-union-dominio/09-acceso-denegado-cgarcia.png)
-*cgarcia recibe "Error de red: No tiene permiso para obtener acceso"*
-
-> **Nota:** Las 22 capturas completas están en la carpeta [`screenshots/`](screenshots/)
+- DHCP con scope y reservas configuradas via PowerShell
+- Print Services con impresoras virtuales compartidas en red
+- Scripts PowerShell guardados en `C:\Scripts\`
 
 ---
 
-## 🐛 Problemas Resueltos
+### 🐧 Lab 5 — Conectividad Linux-Windows
 
-### 1. Windows 10 Home no soporta dominios
+Cliente Ubuntu haciendo ping al Domain Controller por nombre, validando resolución DNS en entorno mixto.
 
-**Problema:** Botón "Dominio" deshabilitado en Windows 10 Home.
-
-**Solución:** Instalar Windows 10 Pro.
-
-**Lección aprendida:** Verificar ediciones de Windows antes de configurar entornos de dominio.
+![Ping Ubuntu a DC](Screenshots/ubuntu-ping-dc.png)
 
 ---
 
-### 2. DNS no resolvía el dominio
+## 📅 Roadmap Certificaciones
 
-**Problema:** `nslookup milab.local` devolvía "Non-existent domain".
-
-**Causa:** Windows priorizaba DNS del adaptador NAT.
-
-**Solución:** Desactivar adaptador NAT temporalmente.
+- [ ] **AZ-900: Azure Fundamentals** → 10/06/2026
+- [ ] **AZ-104: Azure Administrator** → Q3 2026
+- [ ] **CompTIA Network+** → Q4 2026
 
 ---
 
-### 3. Firewall bloqueando unión al dominio
+## 📊 GitHub Stats
 
-**Problema:** Error "No se puede contactar con DC" pese a que ping y DNS funcionaban.
-
-**Causa:** Firewall bloqueando puertos de Active Directory (88, 135, 389, 445).
-
-**Solución:** 
-- **Laboratorio:** Desactivar firewall temporalmente
-- **Producción:** Crear reglas específicas para cada puerto
-
-**Código de reglas para producción:**
-
-```powershell
-# Habilitar puertos de Active Directory
-$ports = @(88, 135, 389, 445, 464, 636, 3268, 3269)
-foreach ($port in $ports) {
-    New-NetFirewallRule -DisplayName "AD-Port-$port-TCP" `
-        -Direction Inbound -Protocol TCP -LocalPort $port -Action Allow
-    New-NetFirewallRule -DisplayName "AD-Port-$port-UDP" `
-        -Direction Inbound -Protocol UDP -LocalPort $port -Action Allow
-}
-```
+[GitHub Stats](https://github-readme-stats.vercel.app/api?username=MbaMrF&show_icons=true&theme=dark&hide_border=true)
 
 ---
 
-### Documentación Completa de Problemas
+## 📫 Contacto
 
-Ver [`docs/LABORATORIO_ASIR_COMPLETO.md#resolución-de-problemas`](docs/LABORATORIO_ASIR_COMPLETO.md#resolución-de-problemas) para la lista completa de 9 problemas documentados.
-
----
-
-## 📚 Aprendizajes
-
-### Habilidades Técnicas Desarrolladas
-
-#### Virtualización
-- ✅ Configuración avanzada de VirtualBox
-- ✅ Gestión de redes virtuales (NAT, Red Interna)
-- ✅ Migración de VMs entre discos
-- ✅ Troubleshooting de problemas de virtualización
-
-#### Networking
-- ✅ Diseño de topologías de red aisladas
-- ✅ Configuración de IPs estáticas
-- ✅ Resolución de problemas DNS
-- ✅ Configuración de Firewall de Windows
-
-#### Windows Server
-- ✅ Instalación de roles y características
-- ✅ Promoción a Controlador de Dominio
-- ✅ Configuración de niveles funcionales
-- ✅ Administración de servicios críticos
-
-#### Active Directory
-- ✅ Diseño de estructura organizativa (OUs)
-- ✅ Gestión de usuarios y grupos
-- ✅ Control de acceso basado en roles (RBAC)
-- ✅ Configuración de permisos de red SMB
-- ✅ Integración DNS-AD
-
-#### Troubleshooting
-- ✅ Diagnóstico sistemático de problemas
-- ✅ Uso de herramientas de diagnóstico:
-  - `dcdiag`
-  - `nslookup`
-  - `ipconfig`
-  - `ping`
-  - `whoami`
-  - `net view`
-
-### Soft Skills
-
-- ✅ **Documentación técnica profesional**
-- ✅ **Resolución de problemas complejos**
-- ✅ **Persistencia ante obstáculos**
-- ✅ **Aprendizaje autónomo**
-- ✅ **Atención al detalle**
-
----
-
-## 🚀 Próximos Pasos
-
-### Mejoras Planificadas
-
-- [ ] **Implementar DHCP** para asignación automática de IPs
-- [ ] **Configurar GPOs** (Group Policy Objects)
-  - Fondo de pantalla corporativo
-  - Restricciones de software
-  - Scripts de inicio de sesión
-- [ ] **Crear segundo Controlador de Dominio** para redundancia
-- [ ] **Unir Ubuntu al dominio** con Samba/SSSD
-- [ ] **Implementar PKI** (Public Key Infrastructure)
-- [ ] **Configurar Remote Desktop Services**
-- [ ] **Añadir monitorización** con herramientas de logging
-- [ ] **Scripts de automatización** con PowerShell
-
-### Laboratorios Futuros
-
-- 🔄 **Replicación de Active Directory** (multi-DC)
-- 🌐 **Windows Server Update Services (WSUS)**
-- 📊 **System Center Configuration Manager (SCCM)**
-- 🔐 **Implementación de Certificate Authority**
-- 📁 **DFS (Distributed File System)**
-- 💾 **Backup y recuperación de Active Directory**
-
----
-
-## 📖 Recursos
-
-### Documentación del Proyecto
-
-- 📄 [Documentación Completa (80+ páginas)](docs/LABORATORIO_ASIR_COMPLETO.md)
-- 🔧 [Guía de Troubleshooting](docs/LABORATORIO_ASIR_COMPLETO.md#resolución-de-problemas)
-- 📋 [Comandos Útiles](docs/LABORATORIO_ASIR_COMPLETO.md#anexo-a-comandos-útiles)
-
-### Referencias Externas
-
-- [Microsoft Learn: Active Directory](https://learn.microsoft.com/es-es/windows-server/identity/ad-ds/)
-- [VirtualBox Documentation](https://www.virtualbox.org/manual/)
-- [Windows Server 2022 Documentation](https://learn.microsoft.com/es-es/windows-server/)
-- [Active Directory Best Practices](https://learn.microsoft.com/es-es/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory)
-
-### Herramientas Utilizadas
-
-| Herramienta | Versión | Propósito |
-|-------------|---------|-----------|
-| Oracle VirtualBox | 7.x | Plataforma de virtualización |
-| Windows Server | 2022 Standard | Sistema operativo del servidor |
-| Windows 10 | Pro (build 19045) | Sistema operativo del cliente |
-| Ubuntu | 24.04 LTS | Sistema operativo del servidor de archivos |
-
----
-
-## 👤 Autor
-
-**[Tu Nombre]**
-
-- 🎓 Técnico Superior en Administración de Sistemas Informáticos en Red (ASIR)
-- 💼 LinkedIn: [tu-perfil-linkedin](https://linkedin.com/in/tu-perfil)
-- 🐙 GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- 📧 Email: tu-email@ejemplo.com
-
----
-
-## 📜 Licencia
-
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-```
-MIT License
-
-Copyright (c) 2026 [Tu Nombre]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
----
-
-## 🌟 Agradecimientos
-
-- Microsoft Learn por la excelente documentación
-- Comunidad de VirtualBox por el soporte
-- Comunidad ASIR por compartir conocimientos
-
----
-
-## 📊 Estadísticas del Proyecto
-
-![GitHub repo size](https://img.shields.io/github/repo-size/tu-usuario/asir-active-directory-lab?style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/tu-usuario/asir-active-directory-lab?style=flat-square)
-![GitHub stars](https://img.shields.io/github/stars/tu-usuario/asir-active-directory-lab?style=social)
+- 💼 **LinkedIn:** [linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9)
+- 📧 **Email:** taskien666@gmail.com
+- 📍 **Ubicación:** Madrid, España
 
 ---
 
 <div align="center">
 
-**⭐ Si este proyecto te fue útil, considera darle una estrella ⭐**
-
-**Desarrollado con 💙 para la comunidad ASIR**
-
-[⬆ Volver arriba](#-laboratorio-active-directory---windows-server-2022)
+*"9 años resolviendo incidencias en producción. Ahora construyo labs para demostrarlo."*
 
 </div>
