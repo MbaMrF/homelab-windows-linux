@@ -11,11 +11,10 @@
 | Componente | Detalle |
 | --- | --- |
 | **Dominio** | `milab.local` con DC Windows Server 2022 |
-| **Equipos** | 2x PCs Windows 11 Pro unidos al dominio |
-| **Red** | Router Cisco C1111X-8P + Switch Catalyst 1000 |
+| **Equipos** | VMs Windows 10 Pro unidas al dominio (VirtualBox) |
+| **Red** | Simulada con Cisco Packet Tracer (C1111X-8P + Catalyst 1000) |
 | **VLANs** | 10 Users, 20 Servers, 30 Guest, 40 Lab |
-| **Servidor** | HPE ProLiant DL20 Gen10 |
-
+| **Virtualización** | Oracle VirtualBox + VMware Workstation 17 |
 ---
 
 ## Componentes y Evidencias
