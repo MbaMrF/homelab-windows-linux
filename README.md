@@ -59,7 +59,7 @@ Tras 9 años en NOC de telecomunicaciones y unos años fuera del sector, he mont
 
 ## 📞 Contacto 632965062
 
-**Busco oportunidad como Técnico N1/N2 en Madrid.** 
+**Busco activamente una oportunidad como Técnico Helpdesk, N1/N2 o Sysadmin Junior en Madrid.** 
 Aporto experiencia en entornos críticos 24x7 + homelab práctico.
 
 - **LinkedIn:** [Fructuoso Mba O. Fernandez](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9/)
