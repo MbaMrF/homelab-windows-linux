@@ -2,77 +2,67 @@
 
 **Proyecto para reincorporación al sector IT como Técnico N1/N2 en Madrid**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Fructuoso_Mba-blue)](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9/)
-[![Email](https://img.shields.io/badge/Email-Contacto-red)](#-contacto)
+[LinkedIn](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9/) | Email: [pon tu email aquí]
 
 ---
 
 ## 🎯 Objetivo
 
-Tras 9 años de experiencia en NOC de telecomunicaciones y unos años fuera del sector, he creado este laboratorio virtualizado para actualizar competencias y optar a puestos de Técnico de Sistemas N1/N2.
+Tras 9 años en NOC de telecomunicaciones y unos años fuera del sector, he montado este laboratorio virtualizado para actualizar competencias y optar a puestos de Técnico de Sistemas N1/N2.
 
 ## 🛠️ Entorno del Laboratorio
 
-| Tecnología | Uso en el Lab |
+| Categoría | Tecnología |
 | --- | --- |
 | **Virtualización** | VMware Workstation / Hyper-V |
-| **Servidor** | Windows Server 2022 Datacenter |
-| **Dominio** | `milab.local` - AD DS, DNS, DHCP, GPOs |
-| **Clientes** | Windows 10 Pro unido al dominio |
-| **Redes** | Laboratorio virtual para VLANs y routing básico |
+| **Sistema Operativo** | Windows Server 2022 Datacenter |
+| **Dominio** | `milab.local` con AD DS, DNS, DHCP |
+| **Redes** | Cisco Packet Tracer para práctica de VLANs y ACLs |
 | **Servicios** | hMailServer, IIS SMTP, MySQL, osTicket |
-| **Scripting** | PowerShell para gestión de AD |
+| **Automatización** | PowerShell básico |
 
-> **Importante:** Todo el entorno está montado sobre máquinas virtuales. No se utiliza hardware de red físico dedicado.
+> **Nota:** Todo el entorno está montado sobre máquinas virtuales. El objetivo es demostrar competencias N1/N2.
 
 ## 📋 Tareas Realizadas
 
-1.  **Instalación AD DS:** Promoción de DC, creación de 25 usuarios en 4 OUs mediante PowerShell
-2.  **GPOs aplicadas:** Mapeo de unidad de red Z:, fondo de escritorio, políticas de contraseña
-3.  **Servicios de red:** DNS con zona `milab.local`, DHCP con ámbito para clientes
-4.  **Servidor de correo:** hMailServer con dominio `@milab.local` + IIS SMTP
-5.  **Helpdesk N1:** osTicket instalado sobre MySQL, recepción de tickets por email
-6.  **Troubleshooting:** Resolución de errores DNS, permisos NTFS y fallos de unión al dominio
+1. **Active Directory:** Instalación AD DS, 25 usuarios en OUs, GPOs para unidades de red
+2. **Servicios de red:** DNS, DHCP configurados y funcionales
+3. **Correo interno:** hMailServer + IIS SMTP con dominio `@milab.local`
+4. **Helpdesk:** osTicket conectado a MySQL para gestión de incidencias
+5. **PowerShell:** Scripts para alta de usuarios
+6. **Packet Tracer:** Topologías con VLANs y ACLs básicas
 
-## 📸 Evidencias
+## 📸 Evidencias del Laboratorio
 
-### Active Directory y Red
-| Usuarios y Equipos de AD | Administrador de DNS |
-| --- | --- |
-| ![AD Users](images/01-ad-users.png) | ![DNS](images/02-dns.png) |
-
-| Servidor DHCP | Directiva de Grupo |
-| --- | --- |
-| ![DHCP](images/03-dhcp.png) | ![GPO](images/04-gpos.png) |
+### Active Directory y PowerShell
+| Equipos en AD | Usuarios AD | PowerShell |
+| --- | --- | --- |
+| ![AD Equipos](Screenshots/ad-equipos.jpg) | ![AD Usuarios](Screenshots/ad-usuarios.jpg) | ![PowerShell](Screenshots/ad-powershell.jpg) |
 
 ### Servicios Desplegados
-| IIS SMTP | hMailServer |
+| hMailServer | IIS SMTP | osTicket |
+| --- | --- | --- |
+| ![hMail](Screenshots/hmailserver-cuentas.jpg) | ![IIS](Screenshots/iis-smtp.jpg) | ![osTicket](Screenshots/osticket-dashboard.jpg) |
+
+### Laboratorio de Redes
+| Topología Packet Tracer | ACLs en CLI |
 | --- | --- |
-| ![IIS](images/05-iis.png) | ![hMail](images/06-hmail.png) |
+| ![Topologia](Screenshots/packettracer-topologia.jpg) | ![ACL](Screenshots/packettracer-cli-acl.jpg) |
 
-| osTicket Helpdesk | PowerShell |
-| --- | --- |
-| ![osTicket](images/07-osticket.png) | ![PowerShell](images/08-powershell.png) |
+## 🚀 Competencias N1/N2 Demostradas
 
-## 🚀 Competencias para N1/N2
+- Instalación Windows Server y promoción a Domain Controller
+- Gestión de usuarios, grupos y permisos NTFS
+- Troubleshooting básico DNS/DHCP
+- Soporte a usuarios con sistema de tickets
+- Documentación técnica y ganas de aprender
 
-- Instalación y administración básica de Windows Server 2022
-- Gestión de usuarios, equipos y permisos en Active Directory
-- Configuración de DNS y DHCP para redes corporativas
-- Aplicación de GPOs para estandarizar puestos de usuario
-- Montaje de servicios: correo interno + sistema de tickets
-- Documentación técnica y resolución de incidencias
+## 📞 Contacto 632965062
 
-## 📞 Contacto 666552626
-
-Busco activamente una oportunidad como **Técnico de Sistemas N1/N2 / Helpdesk en Madrid**.
+**Busco oportunidad como Técnico N1/N2 en Madrid.** 
+Aporto experiencia en entornos críticos 24x7 + homelab práctico.
 
 - **LinkedIn:** [Fructuoso Mba O. Fernandez](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9/)
-- **GitHub:** [MbaMrF](https://github.com/MbaMrF)
 - **Email:** taskien666@gmail.com
 
-**Abierto a entrevistas. Incorporación inmediata.**
-
----
-
-**Tags:** `Windows Server` `Active Directory` `DNS` `DHCP` `GPO` `PowerShell` `Helpdesk` `N1` `N2` `Madrid`
+**Tecnologías:** `Windows Server` `Active Directory` `DNS` `DHCP` `PowerShell` `Packet Tracer` `hMailServer` `osTicket` `N1` `N2`
