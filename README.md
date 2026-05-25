@@ -1,6 +1,6 @@
 # Homelab Windows + Linux | AD + VLANs + ACLs + Correo + Ticketing
 
-**Objetivo:** Infraestructura IT real en casa para practicar soporte N2/N3: Active Directory, redes segmentadas con VLANs/ACLs, correo SMTP local y sistema de tickets.
+**Objetivo:** Infraestructura IT virtualizada para practicar soporte N2/N3: Active Directory, redes segmentadas con VLANs/ACLs, correo SMTP local y sistema de tickets.
 
 **Autor**: Fructuoso Mba Oñana Fernadez | **Estado**: En desarrollo activo | **Ubicación**: Madrid, España
 
@@ -11,10 +11,11 @@
 | Componente | Detalle |
 | --- | --- |
 | **Dominio** | `milab.local` con DC Windows Server 2022 |
-| **Equipos** | VMs Windows 10 Pro unidas al dominio (VirtualBox) |
+| **Virtualización** | Oracle VirtualBox + VMware Workstation 17 |
+| **Clientes** | VMs Windows 10 Pro unidas al dominio |
 | **Red** | Simulada con Cisco Packet Tracer (C1111X-8P + Catalyst 1000) |
 | **VLANs** | 10 Users, 20 Servers, 30 Guest, 40 Lab |
-| **Virtualización** | Oracle VirtualBox + VMware Workstation 17 |
+
 ---
 
 ## Componentes y Evidencias
@@ -23,23 +24,23 @@
 
 - **OU y GPOs**: Estructura por departamentos con políticas aplicadas
 - **Usuarios y grupos**: Creados con PowerShell
-- **Unión al dominio**: PCs clientes operativos
+- **Unión al dominio**: VMs clientes operativas
 
 | Usuarios y Grupos | PowerShell | Equipos en Dominio |
 | --- | --- | --- |
-| ![AD Users](Screenshots/ad-usuarios.jpg) | ![PowerShell](Screenshots/ad-powershell.jpg) | ![AD Computers](Screenshots/ad-equipos.jpg) |
+| [![AD Users](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/ad-usuarios.jpg)](Screenshots/ad-usuarios.jpg) | [![PowerShell](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/ad-powershell.jpg)](Screenshots/ad-powershell.jpg) | [![AD Computers](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/ad-equipos.jpg)](Screenshots/ad-equipos.jpg) |
 
 ---
 
-### 2. Redes: VLANs y ACLs
+### 2. Redes: VLANs y ACLs (Cisco Packet Tracer)
 
-- **VLANs**: Segmentación en L2/L3 con SVIs en el Catalyst
+- **VLANs**: Segmentación en L2/L3 con SVIs en el Catalyst 1000
 - **ACLs**: Bloqueo de Guest→Servers, permiso solo HTTP/HTTPS
-- **DHCP**: Pools por VLAN
+- **DHCP**: Pools por VLAN en el C1111X-8P
 
 | Topología Packet Tracer | ACL en CLI |
 | --- | --- |
-| ![Topologia](Screenshots/packettracer-topologia.jpg) | ![ACL](Screenshots/packettracer-cli-acl.jpg) |
+| [![Topologia](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/packettracer-topologia.jpg)](Screenshots/packettracer-topologia.jpg) | [![ACL](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/packettracer-cli-acl.jpg)](Screenshots/packettracer-cli-acl.jpg) |
 
 ---
 
@@ -50,7 +51,7 @@
 
 | Cuentas hMailServer | Config IIS SMTP |
 | --- | --- |
-| ![hMailServer](Screenshots/hmailserver-cuentas.jpg) | ![IIS SMTP](Screenshots/iis-smtp.jpg) |
+| [![hMailServer](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/hmailserver-cuentas.jpg)](Screenshots/hmailserver-cuentas.jpg) | [![IIS SMTP](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/iis-smtp.jpg)](Screenshots/iis-smtp.jpg) |
 
 ---
 
@@ -61,7 +62,7 @@
 
 | Dashboard osTicket |
 | --- |
-| ![osTicket](Screenshots/osticket-dashboard.jpg) |
+| [![osTicket](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/osticket-dashboard.jpg)](Screenshots/osticket-dashboard.jpg) |
 
 ---
 
@@ -71,11 +72,18 @@
 # AD: Crear OU y usuario
 New-ADOrganizationalUnit -Name "Ventas" -Path "DC=milab,DC=local"
 New-ADUser -Name "j.perez" -Path "OU=Ventas,DC=milab,DC=local" -Enabled $true
+
+# Packet Tracer - Crear VLAN y trunk
+vlan 10
+ name USUARIOS
+interface GigabitEthernet0/1
+ switchport mode trunk
 ```
 
 ---
 
-## 📞 Contacto
+## 📞 Contacto 632965062
+
 
 **LinkedIn**: [linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9) | **Email**: taskien666@gmail.com
 
