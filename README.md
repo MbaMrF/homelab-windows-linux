@@ -1,90 +1,78 @@
-# Homelab Windows + Linux | AD + VLANs + ACLs + Correo + Ticketing
+# Homelab IT: Dominio AD Virtualizado + Laboratorio Redes N1/N2
 
-**Objetivo:** Infraestructura IT virtualizada para practicar soporte N2/N3: Active Directory, redes segmentadas con VLANs/ACLs, correo SMTP local y sistema de tickets.
+**Proyecto para reincorporación al sector IT como Técnico N1/N2 en Madrid**
 
-**Autor**: Fructuoso Mba Oñana Fernadez | **Estado**: En desarrollo activo | **Ubicación**: Madrid, España
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Fructuoso_Mba-blue)](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9/)
+[![Email](https://img.shields.io/badge/Email-Contacto-red)](#-contacto)
 
 ---
 
-## Arquitectura
+## 🎯 Objetivo
 
-| Componente | Detalle |
+Tras 9 años de experiencia en NOC de telecomunicaciones y unos años fuera del sector, he creado este laboratorio virtualizado para actualizar competencias y optar a puestos de Técnico de Sistemas N1/N2.
+
+## 🛠️ Entorno del Laboratorio
+
+| Tecnología | Uso en el Lab |
 | --- | --- |
-| **Dominio** | `milab.local` con DC Windows Server 2022 |
-| **Virtualización** | Oracle VirtualBox + VMware Workstation 17 |
-| **Clientes** | VMs Windows 10 Pro unidas al dominio |
-| **Red** | Simulada con Cisco Packet Tracer (C1111X-8P + Catalyst 1000) |
-| **VLANs** | 10 Users, 20 Servers, 30 Guest, 40 Lab |
+| **Virtualización** | VMware Workstation / Hyper-V |
+| **Servidor** | Windows Server 2022 Datacenter |
+| **Dominio** | `milab.local` - AD DS, DNS, DHCP, GPOs |
+| **Clientes** | Windows 10 Pro unido al dominio |
+| **Redes** | Laboratorio virtual para VLANs y routing básico |
+| **Servicios** | hMailServer, IIS SMTP, MySQL, osTicket |
+| **Scripting** | PowerShell para gestión de AD |
 
----
+> **Importante:** Todo el entorno está montado sobre máquinas virtuales. No se utiliza hardware de red físico dedicado.
 
-## Componentes y Evidencias
+## 📋 Tareas Realizadas
 
-### 1. Active Directory
+1.  **Instalación AD DS:** Promoción de DC, creación de 25 usuarios en 4 OUs mediante PowerShell
+2.  **GPOs aplicadas:** Mapeo de unidad de red Z:, fondo de escritorio, políticas de contraseña
+3.  **Servicios de red:** DNS con zona `milab.local`, DHCP con ámbito para clientes
+4.  **Servidor de correo:** hMailServer con dominio `@milab.local` + IIS SMTP
+5.  **Helpdesk N1:** osTicket instalado sobre MySQL, recepción de tickets por email
+6.  **Troubleshooting:** Resolución de errores DNS, permisos NTFS y fallos de unión al dominio
 
-- **OU y GPOs**: Estructura por departamentos con políticas aplicadas
-- **Usuarios y grupos**: Creados con PowerShell
-- **Unión al dominio**: VMs clientes operativas
+## 📸 Evidencias
 
-| Usuarios y Grupos | PowerShell | Equipos en Dominio |
-| --- | --- | --- |
-| [![AD Users](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/ad-usuarios.jpg)](Screenshots/ad-usuarios.jpg) | [![PowerShell](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/ad-powershell.jpg)](Screenshots/ad-powershell.jpg) | [![AD Computers](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/ad-equipos.jpg)](Screenshots/ad-equipos.jpg) |
-
----
-
-### 2. Redes: VLANs y ACLs (Cisco Packet Tracer)
-
-- **VLANs**: Segmentación en L2/L3 con SVIs en el Catalyst 1000
-- **ACLs**: Bloqueo de Guest→Servers, permiso solo HTTP/HTTPS
-- **DHCP**: Pools por VLAN en el C1111X-8P
-
-| Topología Packet Tracer | ACL en CLI |
+### Active Directory y Red
+| Usuarios y Equipos de AD | Administrador de DNS |
 | --- | --- |
-| [![Topologia](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/packettracer-topologia.jpg)](Screenshots/packettracer-topologia.jpg) | [![ACL](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/packettracer-cli-acl.jpg)](Screenshots/packettracer-cli-acl.jpg) |
+| ![AD Users](images/01-ad-users.png) | ![DNS](images/02-dns.png) |
 
----
-
-### 3. Servidor de Correo Local
-
-- **hMailServer**: Dominio `milab.local` con cuentas de prueba
-- **IIS SMTP**: Relay configurado para envío interno
-
-| Cuentas hMailServer | Config IIS SMTP |
+| Servidor DHCP | Directiva de Grupo |
 | --- | --- |
-| [![hMailServer](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/hmailserver-cuentas.jpg)](Screenshots/hmailserver-cuentas.jpg) | [![IIS SMTP](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/iis-smtp.jpg)](Screenshots/iis-smtp.jpg) |
+| ![DHCP](images/03-dhcp.png) | ![GPO](images/04-gpos.png) |
+
+### Servicios Desplegados
+| IIS SMTP | hMailServer |
+| --- | --- |
+| ![IIS](images/05-iis.png) | ![hMail](images/06-hmail.png) |
+
+| osTicket Helpdesk | PowerShell |
+| --- | --- |
+| ![osTicket](images/07-osticket.png) | ![PowerShell](images/08-powershell.png) |
+
+## 🚀 Competencias para N1/N2
+
+- Instalación y administración básica de Windows Server 2022
+- Gestión de usuarios, equipos y permisos en Active Directory
+- Configuración de DNS y DHCP para redes corporativas
+- Aplicación de GPOs para estandarizar puestos de usuario
+- Montaje de servicios: correo interno + sistema de tickets
+- Documentación técnica y resolución de incidencias
+
+## 📞 Contacto 666552626
+
+Busco activamente una oportunidad como **Técnico de Sistemas N1/N2 / Helpdesk en Madrid**.
+
+- **LinkedIn:** [Fructuoso Mba O. Fernandez](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9/)
+- **GitHub:** [MbaMrF](https://github.com/MbaMrF)
+- **Email:** taskien666@gmail.com
+
+**Abierto a entrevistas. Incorporación inmediata.**
 
 ---
 
-### 4. Sistema de Tickets
-
-- **osTicket**: Instalado en Windows Server con IIS + MySQL
-- **Flujo**: Email → Ticket automático → Asignación → Cierre
-
-| Dashboard osTicket |
-| --- |
-| [![osTicket](https://github.com/MbaMrF/homelab-windows-linux/raw/main/Screenshots/osticket-dashboard.jpg)](Screenshots/osticket-dashboard.jpg) |
-
----
-
-## Comandos Clave
-
-```powershell
-# AD: Crear OU y usuario
-New-ADOrganizationalUnit -Name "Ventas" -Path "DC=milab,DC=local"
-New-ADUser -Name "j.perez" -Path "OU=Ventas,DC=milab,DC=local" -Enabled $true
-
-# Packet Tracer - Crear VLAN y trunk
-vlan 10
- name USUARIOS
-interface GigabitEthernet0/1
- switchport mode trunk
-```
-
----
-
-## 📞 Contacto 632965062
-
-
-**LinkedIn**: [linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9](https://www.linkedin.com/in/fructuoso-mba-o-fernadez-3a64142a9) | **Email**: taskien666@gmail.com
-
-Abierto a oportunidades de **Helpdesk N1/N2, NOC, Técnico de Sistemas Junior** en Madrid.
+**Tags:** `Windows Server` `Active Directory` `DNS` `DHCP` `GPO` `PowerShell` `Helpdesk` `N1` `N2` `Madrid`
